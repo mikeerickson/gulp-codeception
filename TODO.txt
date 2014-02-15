@@ -1,0 +1,2 @@
+#TODO: Integrate all appropriate options into config object
+       - http://codeception.com/docs/reference/commands

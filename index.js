@@ -4,14 +4,14 @@
 
 var map = require('map-stream'),
 	gutil = require('gulp-util'),
-	 exec = require('child_process').exec;
+	exec = require('child_process').exec;
 
 module.exports = function(command, opt){
 	var counter = 0;
 
 	// if path to codecept bin not supplied, use default vendor/bin path
 	if (!command) {
-		command = './vendor/bin/codcept run';
+		command = './vendor/bin/codecept run';
 	}
 	if (!opt) {
 		opt = {};
@@ -37,6 +37,10 @@ module.exports = function(command, opt){
 		opt.testClass = '';
 	}
 
+	if(typeof opt.flags === 'undefined'){
+		opt.flags = '';
+	}
+
 	if(typeof opt.notify === 'undefined'){
 		opt.notify = false;
 	}
@@ -50,11 +54,13 @@ module.exports = function(command, opt){
 		if(opt.testClass)
 			cmd += ' ' + opt.testClass;
 
+		// attach any flags
+		cmd += ' ' + opt.flags;
+
 		if(counter == 0) {
 			counter++;
-			console.log(cmd);
-			// exec(cmd, function (error, stdout, stderr) {
-
+			if (opt.debug) console.log('Debug Cmd: ' + cmd);
+			exec(cmd, function (error, stdout, stderr) {
 				if (!opt.silent && stderr) {
 					gutil.log(stderr);
 				}

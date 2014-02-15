@@ -15,13 +15,13 @@ Then, add it to your `gulpfile.js`:
 var codecept = require('gulp-codeception');
 
 // option 1: default format
-gulp.task('phpunit', function() {
+gulp.task('codecept', function() {
 	gulp.src('./app/tests/*.php').pipe(codecept());
 });
 
 // option 2: with defined bin and options
 gulp.task('codecept', function() {
-	var options = {debug: false};
+	var options = {debug: false, flags: '--silent --report'};
 	gulp.src('./app/tests/*.php').pipe(codecept('./vendor/bin/codecept run',options));
 });
 
@@ -32,14 +32,19 @@ var gulp  = require('gulp'),
  codecept = require('gulp-codecept');
 
 gulp.task('codecept', function() {
-	var options = {debug: false, notify: true};
+	var options = {notify: false, testSuite: 'unit'};
 	gulp.src('app/tests/*.php')
 		.pipe(codecept('', options))
 		.on('error', notify.onError({
-			title: "Failed Tests!",
-			message: "Error(s) occurred during testing..."
+			title: "Testing Failed",
+			message: "Error(s) occurred during test..."
+		}))
+		.pipe(notify({
+			title: "Testing Passed",
+			message: "All tests have passed..."
 		}));
 });
+
 
 ```
 
@@ -57,7 +62,7 @@ The path to the desired Codeception binary
 #### options.debug
 Type: `Boolean`
 
-Emit error details
+Emit error details and shows command used in console
 
 #### options.clear
 Type: `Boolean`
@@ -68,6 +73,19 @@ Clear console before executing command
 Type: `String`
 
 Define a specific class for testing (supply full path to test class)
+
+#### options.testSuite
+Type: `String`
+
+Define a specific test suite to execute (acceptance, unit, functional)
+Note: You can also supply any custom suites you may have created
+
+#### options.flags
+Type: `String`
+
+Define any custom flags you may wish to use during testing
+
+var opts = {flags: '--silent --report'}
 
 #### options.notify
 Type: `Boolean`
@@ -80,4 +98,10 @@ Call user supplied callback to handle notification
 
 ## Credits
 
-PHPCodeception written by Mike Erickson
+gulp-codeception written by Mike Erickson
+
+E-Mail: [codedungeon@gmail.com](mailto:codedungeon@gmail.com)
+
+Twitter: [@codedungeon](http://twitter.com/codedungeon)
+
+Webiste: [codedungeon.org](http://codedungeon.org)
