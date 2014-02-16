@@ -4,7 +4,8 @@
 
 var map = require('map-stream'),
 	gutil = require('gulp-util'),
-	exec = require('child_process').exec;
+ colors = require('colors'),
+	 exec = require('child_process').exec;
 
 module.exports = function(command, opt){
 	var counter = 0;
