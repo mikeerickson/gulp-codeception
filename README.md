@@ -50,7 +50,7 @@ gulp.task('codecept', function() {
 
 ## API
 
-### (codeceptpath,options)
+### (codeceptpath,options,cb)
 
 #### codeceptpath
 
@@ -60,12 +60,12 @@ The path to the desired Codeception binary
 - If not supplied, the defeault path will be ./vendor/bin/codecept
 
 #### options.debug
-Type: `Boolean`
+Type: `Boolean (Default: false)`
 
 Emit error details and shows command used in console
 
 #### options.clear
-Type: `Boolean`
+Type: `Boolean (Default: false)`
 
 Clear console before executing command
 
@@ -75,24 +75,30 @@ Type: `String`
 Define a specific class for testing (supply full path to test class)
 
 #### options.testSuite
-Type: `String`
+Type: `String (Default all suites)`
 
 Define a specific test suite to execute (acceptance, unit, functional)
 Note: You can also supply any custom suites you may have created
 
 #### options.flags
-Type: `String`
+Type: `String (Default no flags)`
 
 Define any custom flags you may wish to use during testing
 
+```
 var opts = {flags: '--silent --report'}
+```
 
 #### options.notify
-Type: `Boolean`
+Type: `Boolean (Default: false)`
 
-Call user supplied callback to handle notification
+Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
+
+- 0.0.2: Code Refactoring and Cleanup
+    - Added test/test.js
+    - Updated documentation
 
 - 0.0.1: Initial Release
 
