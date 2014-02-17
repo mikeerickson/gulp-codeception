@@ -96,7 +96,10 @@ Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
 
-- 0.0.2: Code Refactoring and Cleanup
+- 0.2.0: Update Default Command - Windows Fix
+    - Fixed default command when using windows
+
+- 0.1.2: Code Refactoring and Cleanup
     - Added test/test.js
     - Updated documentation
 

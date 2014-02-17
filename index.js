@@ -5,13 +5,15 @@
 var map = require('map-stream'),
 	gutil = require('gulp-util'),
  colors = require('colors'),
+	   os = require('os'),
 	 exec = require('child_process').exec;
 
 module.exports = function(command, opt){
 	var counter = 0;
 
 	// if path to codecept bin not supplied, use default vendor/bin path
-	! command ? command = './vendor/bin/codecept run' : '';
+	if(! command)
+		(os.platform() === 'win32') ? command = '.\\vendor\\bin\\codecept run' : command = './vendor/bin/codecept run';
 
 	// create default opt object if no options supplied
 	if ( ! opt) opt = {};
