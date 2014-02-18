@@ -96,6 +96,9 @@ Call user supplied callback to handle notification (use gulp-notify)
 
 ## Changelog
 
+- 0.3.0: Updated package.json to include test dependencies and scripts
+    - Added updated test script (calls mocha and jshint)
+
 - 0.2.0: Update Default Command - Windows Fix
     - Fixed default command when using windows
 

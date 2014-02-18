@@ -1,31 +1,34 @@
 /*jshint node:true */
 
-"use strict";
+'use strict';
 
 var map = require('map-stream'),
-	gutil = require('gulp-util'),
- colors = require('colors'),
-	   os = require('os'),
-	 exec = require('child_process').exec;
+  gutil = require('gulp-util'),
+     os = require('os'),
+   exec = require('child_process').exec;
 
 module.exports = function(command, opt){
 	var counter = 0;
 
 	// if path to codecept bin not supplied, use default vendor/bin path
-	if(! command)
-		(os.platform() === 'win32') ? command = '.\\vendor\\bin\\codecept run' : command = './vendor/bin/codecept run';
+	if(! command) {
+		command = './vendor/bin/codecept run';
+		if (os.platform() === 'win32') {
+			command = '.\\vendor\\bin\\codecept run';
+		}
+	}
 
 	// create default opt object if no options supplied
-	if ( ! opt) opt = {};
+	if ( ! opt) { opt = {}; }
 
 	// assign default options if one is not supplied
-	if (typeof opt.testSuite === 'undefined') opt.testSuite = '';
-	if (typeof opt.silent === 'undefined') opt.silent = false;
-	if (typeof opt.debug === 'undefined') opt.debug = false;
-	if (typeof opt.testClass === 'undefined') opt.testClass = '';
-	if (typeof opt.clear === 'undefined') opt.clear = false;
-	if (typeof opt.flags === 'undefined') opt.flags = '';
-	if (typeof opt.notify === 'undefined') opt.notify = false;
+	if (typeof opt.testSuite === 'undefined') { opt.testSuite = ''; }
+	if (typeof opt.silent === 'undefined') { opt.silent = false; }
+	if (typeof opt.debug === 'undefined') { opt.debug = false; }
+	if (typeof opt.testClass === 'undefined') { opt.testClass = ''; }
+	if (typeof opt.clear === 'undefined') { opt.clear = false; }
+	if (typeof opt.flags === 'undefined') { opt.flags = ''; }
+	if (typeof opt.notify === 'undefined') { opt.notify = false; }
 
 	return map(function (file, cb) {
 
@@ -33,21 +36,22 @@ module.exports = function(command, opt){
 		var cmd = opt.clear ? 'clear && ' + command : command;
 
 		// assing default class and/or test suite
-		if (opt.testSuite) cmd += ' ' + opt.testSuite;
-		if (opt.testClass) cmd += ' ' + opt.testClass;
+		if (opt.testSuite) { cmd += ' ' + opt.testSuite; }
+		if (opt.testClass) { cmd += ' ' + opt.testClass; }
 
-		if(counter == 0) {
+		if(counter === 0) {
 			counter++;
 
 			// attach any flags
-			if(opt.debug)
+			if(opt.debug) {
 				opt.flags += ' --debug ';
+			}
 			cmd += ' ' + opt.flags;
 
 			cmd.trim(); // clean up any space remnants
 
 			if (opt.debug) {
-				console.log('\n       *** Debug Cmd: '.yellow + cmd.yellow + '***\n'.yellow);
+				console.log(gutil.colors.yellow('\n       *** Debug Cmd: ' + cmd + '***\n'));
 			}
 
 			exec(cmd, function (error, stdout, stderr) {

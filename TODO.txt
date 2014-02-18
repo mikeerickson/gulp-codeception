@@ -1,2 +1,6 @@
 TODO: Integrate all appropriate options into config object
        - http://codeception.com/docs/reference/commands
+
+TODO: Determine method for testing all suites except a given suitename (ie all except API)
+
+TODO: Refactor console.log usage of 'colors' to use gulp-utils color routines
