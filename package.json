@@ -1,16 +1,16 @@
 {
   "name": "gulp-codeception",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "PHP Codeception plugin for Gulp",
   "main": "index.js",
   "dependencies": {
-    "map-stream": "~0.0.4",
-    "gulp-util": "~2.2.5"
+    "map-stream": "0.0.4",
+    "gulp-util": "~2.2.14"
   },
   "devDependencies": {
-    "jshint": "~2.4.1",
-    "mocha": "~1.17.0",
-    "should": "~3.0.1"
+    "jshint": "~2.4.4",
+    "mocha": "~1.17.1",
+    "should": "~3.1.2"
   },
   "scripts": {
     "test": "mocha && jshint ./*.js && jshint ./test/*.js"
@@ -24,7 +24,7 @@
     "codeception"
   ],
   "author": "Mike Erickson <codedungeon@gmail.com>",
-  "license": "BSD-2-Clause",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/mikeerickson/gulp-codeception/issues"
   },

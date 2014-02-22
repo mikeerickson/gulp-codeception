@@ -94,7 +94,17 @@ Type: `Boolean (Default: false)`
 
 Call user supplied callback to handle notification (use gulp-notify)
 
+#### options.skipSuite
+Type: `Array (Default: [])`
+
+List of suite(s) to skip during test run
+
 ## Changelog
+
+- 0.4.0: Expanded API
+    - Added new option opts.skipSuite
+    - Expanded plugin tests
+    - Updated dependencies for jsHint and Mocha
 
 - 0.3.0: Updated package.json to include test dependencies and scripts
     - Added updated test script (calls mocha and jshint)

@@ -3,12 +3,17 @@
 'use strict';
 
 var map = require('map-stream'),
-  gutil = require('gulp-util'),
-     os = require('os'),
-   exec = require('child_process').exec;
+	gutil = require('gulp-util'),
+	   os = require('os'),
+	 exec = require('child_process').exec;
 
 module.exports = function(command, opt){
 	var counter = 0;
+	var skipCmd = '';
+
+	if (typeof command === 'object') {
+		throw new Error('Invalid Codeception Binary');
+	}
 
 	// if path to codecept bin not supplied, use default vendor/bin path
 	if(! command) {
@@ -29,24 +34,38 @@ module.exports = function(command, opt){
 	if (typeof opt.clear === 'undefined') { opt.clear = false; }
 	if (typeof opt.flags === 'undefined') { opt.flags = ''; }
 	if (typeof opt.notify === 'undefined') { opt.notify = false; }
+	if (typeof opt.skipSuites === 'undefined') { opt.skipSuites = ''; }
 
 	return map(function (file, cb) {
 
 		// construct command
 		var cmd = opt.clear ? 'clear && ' + command : command;
 
-		// assing default class and/or test suite
+		// assign default class and/or test suite
 		if (opt.testSuite) { cmd += ' ' + opt.testSuite; }
 		if (opt.testClass) { cmd += ' ' + opt.testClass; }
+
+		// check if user supplied one or more suites to skip
+		if (typeof opt.skipSuites === 'object') {
+			if (opt.skipSuites.length > 0) {
+				for( var i = 0; i < opt.skipSuites.length; i++  ) {
+					skipCmd += ' --skip ' + opt.skipSuites[i];
+				}
+			}
+		} else {
+			if (opt.skipSuites.length > 0) {
+				skipCmd = ' --skip ' + opt.skipSuites;
+			}
+		}
 
 		if(counter === 0) {
 			counter++;
 
 			// attach any flags
-			if(opt.debug) {
+			if (opt.debug) {
 				opt.flags += ' --debug ';
 			}
-			cmd += ' ' + opt.flags;
+			cmd += skipCmd + ' ' + opt.flags;
 
 			cmd.trim(); // clean up any space remnants
 
