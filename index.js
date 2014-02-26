@@ -4,15 +4,15 @@
 
 var map = require('map-stream'),
 	gutil = require('gulp-util'),
-	   os = require('os'),
-	 exec = require('child_process').exec;
+     os = require('os'),
+   exec = require('child_process').exec;
 
-module.exports = function(command, opt){
+module.exports = function(command, opt) {
 	var counter = 0;
 	var skipCmd = '';
 
 	if (typeof command === 'object') {
-		throw new Error('Invalid Codeception Binary');
+		throw new gutil.PluginError("gulp-codeception", "Invalid Codeception Binary");
 	}
 
 	// if path to codecept bin not supplied, use default vendor/bin path
@@ -70,7 +70,7 @@ module.exports = function(command, opt){
 			cmd.trim(); // clean up any space remnants
 
 			if (opt.debug) {
-				console.log(gutil.colors.yellow('\n       *** Debug Cmd: ' + cmd + '***\n'));
+				gutil.log(gutil.colors.yellow('\n       *** Debug Cmd: ' + cmd + '***\n'));
 			}
 
 			exec(cmd, function (error, stdout, stderr) {
@@ -88,7 +88,7 @@ module.exports = function(command, opt){
 				}
 
 				if(opt.debug && error) {
-					console.log(error);
+					gutil.log(error);
 				}
 
 				if (opt.notify) {
