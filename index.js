@@ -93,6 +93,8 @@ module.exports = function(command, opt) {
 
 				if (opt.notify) {
 					cb(error, file);
+				} else {
+					cb(null, file);
 				}
 
 			});

@@ -103,6 +103,7 @@ List of suite(s) to skip during test run
 
 - 0.4.1: Code Cleanup
     - Removed calls to console.log -> gutil.log (playing nice in the playground)
+    - Fixed issue with calling as dependency task (thanks @taai)
 
 - 0.4.0: Expanded API
     - Added new option opts.skipSuite
