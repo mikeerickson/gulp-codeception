@@ -101,6 +101,8 @@ List of suite(s) to skip during test run
 
 ## Changelog
 
+- 0.4.2: xxx
+
 - 0.4.1: Code Cleanup
     - Removed calls to console.log -> gutil.log (playing nice in the playground)
     - Fixed issue with calling as dependency task (thanks @taai)
