@@ -99,8 +99,16 @@ Type: `Array (Default: [])`
 
 List of suite(s) to skip during test run
 
+#### options.build
+Type: `Boolean (Default: false)`
+
+When true, executes Codeception Build task, should only be triggered when changes made to .suite.yml files
+
 ## Changelog
 
+- 0.4.3: Options Addition
+    - Added `build` option to trigger Codeception Build task
+    
 - 0.4.2: Code Refactor and Travis Integration
     - Refactored option definition
     - Added travis configuration

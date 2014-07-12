@@ -4,8 +4,8 @@
 
 var map = require('map-stream'),
 	gutil = require('gulp-util'),
-     os = require('os'),
-   exec = require('child_process').exec;
+	os = require('os'),
+	exec = require('child_process').exec;
 
 module.exports = function(command, opt) {
 	var counter = 0;
@@ -17,9 +17,9 @@ module.exports = function(command, opt) {
 
 	// if path to codecept bin not supplied, use default vendor/bin path
 	if(! command) {
-		command = './vendor/bin/codecept run';
+		command = './vendor/bin/codecept';
 		if (os.platform() === 'win32') {
-			command = '.\\vendor\\bin\\codecept run';
+			command = '.\\vendor\\bin\\codecept';
 		}
 	}
 
@@ -34,7 +34,10 @@ module.exports = function(command, opt) {
 	if (typeof opt.clear === 'undefined') { opt.clear = false; }
 	if (typeof opt.flags === 'undefined') { opt.flags = ''; }
 	if (typeof opt.notify === 'undefined') { opt.notify = false; }
+	if (typeof opt.build === 'undefined') { opt.build = false; }
 	if (typeof opt.skipSuites === 'undefined') { opt.skipSuites = ''; }
+
+	command = opt.build ? command += ' build' :  command += ' run';
 
 	return map(function (file, cb) {
 
@@ -62,7 +65,7 @@ module.exports = function(command, opt) {
 			counter++;
 
 			// attach any flags
-			if (opt.debug) {
+			if (opt.debug && ! opt.build) {
 				opt.flags += ' --debug ';
 			}
 			cmd += skipCmd + ' ' + opt.flags;
