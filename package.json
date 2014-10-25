@@ -1,6 +1,6 @@
 {
   "name": "gulp-codeception",
-  "version": "0.4.3",
+  "version": "0.5.0",
   "description": "PHP Codeception plugin for Gulp",
   "main": "index.js",
   "dependencies": {

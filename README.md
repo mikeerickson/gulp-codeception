@@ -1,4 +1,4 @@
-# gulp-codception
+# gulp-codeception
 > Codeception plugin for gulp 3
 
 ## Usage
@@ -30,20 +30,25 @@ gulp.task('codecept', function() {
 var gulp  = require('gulp'),
  notify   = require('gulp-notify'),
  codecept = require('gulp-codecept');
+ _        = require('lodash');
 
-gulp.task('codecept', function() {
-	var options = {notify: false, testSuite: 'unit'};
-	gulp.src('app/tests/*.php')
-		.pipe(codecept('', options))
-		.on('error', notify.onError({
-			title: "Testing Failed",
-			message: "Error(s) occurred during test..."
-		}))
-		.pipe(notify({
-			title: "Testing Passed",
-			message: "All tests have passed..."
-		}));
-});
+  gulp.task('codecept', function() {
+    gulp.src('codeception.yml')
+      .pipe(phpunit('', {notify: true}))
+      .on('error', notify.onError(testNotification('fail', 'phpunit')))
+      .pipe(notify(testNotification('pass', 'phpunit')));
+  });
+
+
+function testNotification(status, pluginName, override) {
+	var options = {
+		title:   ( status == 'pass' ) ? 'Tests Passed' : 'Tests Failed',
+		message: ( status == 'pass' ) ? '\n\nAll tests have passed!\n\n' : '\n\nOne or more tests failed...\n\n',
+		icon:    __dirname + '/node_modules/gulp-' + pluginName +'/assets/test-' + status + '.png'
+	};
+	options = _.merge(options, override);
+  return options;
+}
 
 
 ```
@@ -106,6 +111,11 @@ When true, executes Codeception Build task, should only be triggered when change
 
 ## Changelog
 
+- 0.5.0 Added Plugin Resources
+    - Added new icons for pass and fail which can be used by notify plugin (see example below for usage)
+      /assets/test-pass.png
+      /assets/test-fail.png
+ 
 - 0.4.3: Options Addition
     - Added `build` option to trigger Codeception Build task
     
