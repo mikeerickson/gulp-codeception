@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "map-stream": "0.0.4",
-    "gulp-util": "~2.2.14"
+    "gulp-util": "~3.0.8"
   },
   "devDependencies": {
     "jshint": "~2.4.4",
