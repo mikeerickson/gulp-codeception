@@ -10,7 +10,7 @@
   "devDependencies": {
     "gulp": "3.9.1",
     "gulp-notify": "2.2.0",
-    "gulp-shell": "0.5.2",
+    "gulp-shell": "0.6.1",
     "jshint": "2.9.4",
     "mocha": "3.2.0",
     "should": "11.1.2"
